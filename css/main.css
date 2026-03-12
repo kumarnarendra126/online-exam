@@ -1,0 +1,247 @@
+body
+{
+overflow-x:hidden;
+width:100%;
+font: 15px "Century Gothic", "Times Roman", sans-serif;
+background:#eee;
+min-height:550px;
+background-attachment:fixed;
+}
+.bg
+{
+min-height:540px;
+}
+.bg1
+{
+background:url(../image/bg.jpg);
+min-height:535px;
+}
+.bg2
+{
+background: url(../image/download.jpg);
+}
+@font-face {
+   font-family: 'typo';
+    src: url('../fonts/typo.ttf');
+	}
+
+@font-face {
+   font-family: 'gothic';
+    src: url('../fonts/gothics.ttf');
+	}
+
+ol, ul{
+    list-style-type: none !important;
+}
+.panel{
+border-color:#eee;
+margin:40px;
+padding:20px;
+font: 15px "Century Gothic", "Times Roman", sans-serif;
+}
+
+.title
+{
+font-family:'typo';
+}
+
+.header
+{
+background:#202020;
+height:70px;
+}
+.logo
+{
+font-family:'typo';
+font-size:35px;
+color:#ffbb33;
+margin:15px;
+}
+
+.title1{
+font: 16px "Century Gothic", "Times Roman", sans-serif;
+}
+.title2{
+font-family: 'Ubuntu', sans-serif;
+font-size:20px;
+}
+
+
+.sub1
+{
+width:90px;
+color:#202020;
+background:orange;
+font-size:15px;
+height:35px;
+margin:20px;
+padding:10px;
+width:100px;
+}
+
+
+.sub
+{
+width:100%;
+background-color:#9acd32;
+font-size:20px;
+padding:2px;
+margin-top:15px;
+margin-right:20px;
+}
+.sub:hover
+{
+color:#fff;
+}
+
+.footer
+{
+font-size:15px;
+text-align:center;
+border-top:1px solid;
+border-color:#323232;
+background-color:#202020;
+}
+.footer a
+{
+margin:25px;
+color:orange;
+text-decoration:none;
+font: 15px "Century Gothic", "Times Roman", sans-serif;
+
+}
+.footer a:hover
+{
+text-decoration:none;
+color:#9acd32;
+border-top:2px solid;
+border-color:orange;
+
+}
+
+.box
+{
+padding:9px;
+}
+hr{
+color:#000000;
+}
+.top
+{
+margin-top:20px;
+}
+.log1
+{
+font: 15px 'Ubuntu', sans-serif;
+color:orange;
+margin-left:10px;
+}
+
+.log
+{
+margin:10px;
+margin-right:60px;
+margin-left:5px;
+color:orange;
+text-decoration:none;
+font-size:20px;
+font-size:15px;
+}
+.log:hover
+{
+color:#9acd32;
+border-top:2px solid;
+border-color:orange;
+text-decoration:none;
+}
+
+.themed-modal .modal-content {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: none;
+}
+
+.themed-modal .modal-header {
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    color: #FFA500;
+    border-radius: 15px 15px 0 0;
+    border-bottom: none;
+}
+
+.themed-modal .modal-title {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.themed-modal .close {
+    color: #FFA500;
+    opacity: 0.8;
+    margin-top: -30px !important;
+}
+
+.themed-modal .modal-body {
+    padding: 30px;
+    background: #f8f9fa;
+}
+
+.themed-modal .form-group {
+    margin-bottom: 15px;
+}
+
+.themed-modal .control-label {
+    text-align: left;
+    font-weight: bold;
+    color: #000;
+}
+
+.themed-modal .form-control {
+    border-radius: 8px;
+    border: 2px solid #FFA500;
+    padding: 12px;
+    font-size: 16px;
+    background: #fff;
+    color: #000;
+}
+
+.themed-modal .modal-footer {
+    border-top: none;
+    padding: 20px 30px;
+    background: #000;
+    border-radius: 0 0 15px 15px;
+}
+
+.themed-modal .btn-secondary {
+    border-radius: 8px;
+    padding: 10px 20px;
+    background: #666;
+    color: #fff;
+    border: none;
+}
+
+.themed-modal .btn {
+    background: #FFA500;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px;
+    font-weight: bold;
+}
+
+.modal {
+    text-align: center;
+    padding: 0!important;
+}
+
+.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
