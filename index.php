@@ -102,7 +102,7 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
 
         <div class="form-group">
           <div class="col-md-12">
-            <input id="cpassword" name="cpassword" placeholder="Conform Password" class="form-control input-md" type="password">
+            <input id="cpassword" name="cpassword" placeholder="Confirm Password" class="form-control input-md" type="password">
           </div>
         </div>
         <?php if(@$_GET['q7']) { echo'<p style="color:red;font-size:15px;">'.@$_GET['q7'];}?>
@@ -138,62 +138,13 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
 	</div>
 </div>
 
-<!-- Modal For Developers-->
-<div class="modal fade title1" id="developers">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content themed-modal">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" style="font-family:'typo' "><span style="color:orange">Developers</span></h4>
-      </div>
-	  
-      <div class="modal-body">
-    <p>
-        <div class="row">
-            <div class="col-md-4">
-                <img src="./image/abhishek.jpeg" width="140" height="140" alt="" class="img-rounded">
-            </div>
-            <div class="col-md-5">
-                <h4>Abhishek Kumar</h4>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9616625629</h4>
-                <h4 style="font-family:'typo';">abhishek007kum@gmail.com</h4>
-                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
-            </div>
-        </div>
-        <hr> <!-- Divider Line -->
-
-        <div class="row">
-            <div class="col-md-4">
-                <img src="./image/abhishek-pal.jpeg" width="140" height="140" alt="" class="img-rounded">
-            </div>
-            <div class="col-md-5">
-                <h4>Abhishek Pal</h4>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91  7370004059</h4>
-                <h4 style="font-family:'typo';">abhishekpal7641@gmail.com</h4>
-                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
-            </div>
-        </div>
-        <hr> <!-- Divider Line -->
-
-        <div class="row">
-            <div class="col-md-4">
-                <img src="./image/ansh.jpeg" width="140" height="140" alt="" class="img-rounded">
-            </div>
-            <div class="col-md-5">
-                <h4>Ansh Raj Sharma</a>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9264943633</h4>
-                <h4 style="font-family:'typo';">anshrajsharma1234@gmail.com</h4>
-                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
-            </div>
-        </div>
-    </p>
-</div>
     
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <?php include 'admin_login_modal.php'; ?>
+<?php include 'developers_modal.php'; ?>
 <!--footer end-->
 
 

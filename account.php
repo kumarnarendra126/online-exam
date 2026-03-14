@@ -77,11 +77,6 @@ echo '<span class="pull-right top title1">
             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Ranking
           </a>
         </li>
-        <li class="pull-right">
-          <a href="logout.php?q=account.php" style="font-weight: bold;">
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Signout
-          </a>
-        </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -101,19 +96,19 @@ $c=1;
 while($row = mysqli_fetch_array($result)) {
 	$title = $row['title'];
 	$total = $row['total'];
-	$sahi = $row['sahi'];
+	$correct = $row['correct'];
     $time = $row['time'];
 	$eid = $row['eid'];
 $q12=mysqli_query($con,"SELECT score FROM history WHERE eid='$eid' AND email='$email'" )or die('Error98');
 $rowcount=mysqli_num_rows($q12);	
 if($rowcount == 0){
-	echo '<tr><td>'.$c++.'</td><td>'.$title.'</td><td>'.$total.'</td><td>'.$sahi*$total.'</td><td>'.$time.'&nbsp;min</td>
+	echo '<tr><td>'.$c++.'</td><td>'.$title.'</td><td>'.$total.'</td><td>'.$correct*$total.'</td><td>'.$time.'&nbsp;min</td>
 	<td><b><a href="account.php?q=quiz&step=2&eid='.$eid.'&n=1&t='.$total.'" class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td></tr>';
 }
 else
 {
-echo '<tr style="color:#99cc32"><td>'.$c++.'</td><td>'.$title.'&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td><td>'.$total.'</td><td>'.$sahi*$total.'</td><td>'.$time.'&nbsp;min</td>
-	<td><b><a href="update.php?q=quizre&step=25&eid='.$eid.'&n=1&t='.$total.'" class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></td></tr>';
+echo '<tr style="color:#99cc32"><td>'.$c++.'</td><td>'.$title.'&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td><td>'.$total.'</td><td>'.$correct*$total.'</td><td>'.$time.'&nbsp;min</td>
+	<td><b><a href="summary.php?eid='.$eid.'" class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>View</b></span></a></b></td></tr>';
 }
 }
 $c=0;
@@ -142,31 +137,142 @@ var countdownTimer = setInterval('secondPassed()', 1000);
 
 <!--home closed-->
 
+<script src="js/timer.js" type="text/javascript"></script>
 <!--quiz start-->
 <?php
 if(@$_GET['q']== 'quiz' && @$_GET['step']== 2) {
-$eid=@$_GET['eid'];
-$sn=@$_GET['n'];
-$total=@$_GET['t'];
-$q=mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' AND sn='$sn' " );
-echo '<div class="panel" style="margin:5%">';
-while($row=mysqli_fetch_array($q) )
-{
-$qns=$row['qns'];
-$qid=$row['qid'];
-echo '<b>Question &nbsp;'.$sn.'&nbsp;::<br />'.$qns.'</b><br /><br />';
-}
-$q=mysqli_query($con,"SELECT * FROM options WHERE qid='$qid' " );
-echo '<form action="update.php?q=quiz&step=2&eid='.$eid.'&n='.$sn.'&t='.$total.'&qid='.$qid.'" method="POST"  class="form-horizontal">
-<br />';
+    $eid=@$_GET['eid'];
+    $sn=@$_GET['n'];
+    $total=@$_GET['t'];
+    if($sn == 1)
+    {
+        $q_history=mysqli_query($con,"SELECT * FROM history WHERE eid='$eid' AND email='$email'" ) or die(mysqli_error($con));
+        if(mysqli_num_rows($q_history) == 0)
+        {
+            $q=mysqli_query($con,"INSERT INTO history(email, eid, score, level, correct, wrong, date, start_time) VALUES('$email','$eid' ,'0','0','0','0',NOW(), NOW())")or die(mysqli_error($con));
+        }
+    }
+    $q_history=mysqli_query($con,"SELECT UNIX_TIMESTAMP(start_time) as start_timestamp FROM history WHERE eid='$eid' AND email='$email'" ) or die(mysqli_error($con));
+    $row_history=mysqli_fetch_array($q_history);
+    $start_time_ts = $row_history['start_timestamp'];
+    
+    $q_quiz=mysqli_query($con,"SELECT * FROM quiz WHERE eid='$eid' " ) or die(mysqli_error($con));
+    $row_quiz=mysqli_fetch_array($q_quiz);
+    $time = $row_quiz['time'];
 
-while($row=mysqli_fetch_array($q) )
-{
-$option=$row['option'];
-$optionid=$row['optionid'];
-echo'<input type="radio" name="ans" value="'.$optionid.'">'.$option.'<br /><br />';
-}
-echo'<br /><button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;Submit</button></form></div>';
+    $end_time_ts = $start_time_ts + ($time * 60);
+    
+
+    $q_questions=mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' AND sn='$sn' " ) or die(mysqli_error($con));
+    if(mysqli_num_rows($q_questions) == 0)
+    {
+        echo '<div class="panel" style="margin:5%;"><div class="alert alert-danger" role="alert">
+              No questions found for this quiz.
+            </div></div>';
+    }
+    else
+    {
+        echo '<div class="panel" style="margin:5%;">';
+        $progress = ($sn-1)/$total * 100;
+        echo '<div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: '.$progress.'%;" aria-valuenow="'.$progress.'" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>';
+        echo '<div class="row">
+                <div class="col-md-6">
+                    <h3 style="font-weight: bold;">Question &nbsp;'.$sn.'&nbsp;</h3>
+                </div>
+                <div class="col-md-6">
+                    <div id="timer" style="font-size: 20px; font-weight: bold; color: #333; float: right;"></div>
+                </div>
+              </div>';
+        $qid = '';
+        while($row_questions=mysqli_fetch_array($q_questions) )
+        {
+            $qns=$row_questions['qns'];
+            $qid=$row_questions['qid'];
+            echo '<div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">'.$qns.'</h5>';
+        }
+        if($qid != '')
+        {
+            $q_options=mysqli_query($con,"SELECT * FROM options WHERE qid='$qid' " ) or die(mysqli_error($con));
+            echo '<form action="update.php?q=quiz&step=2&eid='.$eid.'&n='.$sn.'&t='.$total.'&qid='.$qid.'" method="POST"  class="form-horizontal">
+                    <ul class="list-group list-group-flush">';
+
+            while($row_options=mysqli_fetch_array($q_options) )
+            {
+                $option=$row_options['option'];
+                $optionid=$row_options['optionid'];
+                echo'<li class="list-group-item">
+                        <input type="radio" name="ans" value="'.$optionid.'"> '.$option.'
+                     </li>';
+            }
+            echo'</ul>
+                <div class="card-body">';
+            if($sn < $total)
+            {
+                echo '<button type="submit" class="btn btn-primary" name="next"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>&nbsp;Next</button>';
+            }
+            if($sn == $total)
+            {
+                echo '<button type="submit" class="btn btn-success" name="submit"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;Submit</button>';
+            }
+            echo '</div>
+                </form>
+                </div>
+                </div>';
+        }
+
+        echo '<script>
+    // Automatically request full-screen mode
+    function openFullscreen() {
+      var elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) { /* Firefox */
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        elem.msRequestFullscreen();
+      }
+    }
+    openFullscreen();
+
+    // Disable the browser\'s back button
+    history.pushState(null, null, document.URL);
+    window.addEventListener(\'popstate\', function () {
+        history.pushState(null, null, document.URL);
+    });
+
+    // New client-side timer logic using timestamp
+    var endTime = ' . $end_time_ts . ' * 1000; // in milliseconds
+    var display = document.querySelector("#timer");
+
+    var timerInterval = setInterval(function () {
+        var now = new Date().getTime();
+        var remaining = endTime - now;
+
+        if (remaining <= 0) {
+            clearInterval(timerInterval);
+            var form = document.querySelector("form");
+            if(form){
+                form.submit();
+            }
+        } else {
+            var minutes = Math.floor(remaining / 60000);
+            var seconds = Math.floor((remaining % 60000) / 1000);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+        }
+    }, 1000);
+</script>';
+        echo '</div>';
+    }
 //header("location:dash.php?q=4&step=2&eid=$id&n=$total");
 }
 //result display
@@ -181,7 +287,7 @@ while($row=mysqli_fetch_array($q) )
 {
 $s=$row['score'];
 $w=$row['wrong'];
-$r=$row['sahi'];
+$r=$row['correct'];
 $qa=$row['level'];
 echo '<tr style="color:#66CCFF"><td>Total Questions</td><td>'.$qa.'</td></tr>
       <tr style="color:#99cc32"><td>right Answer&nbsp;<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></td><td>'.$r.'</td></tr> 
@@ -213,7 +319,7 @@ while($row=mysqli_fetch_array($q) )
 $eid=$row['eid'];
 $s=$row['score'];
 $w=$row['wrong'];
-$r=$row['sahi'];
+$r=$row['correct'];
 $qa=$row['level'];
 $q23=mysqli_query($con,"SELECT title FROM quiz WHERE  eid='$eid' " )or die('Error208');
 while($row=mysqli_fetch_array($q23) )
@@ -284,45 +390,39 @@ echo '</table></div></div>';}
     <p>
         <div class="row">
             <div class="col-md-4">
-                <img src="./image/Gaurav_Patil.jpg" width="140" height="140" alt="" class="img-rounded">
+               <img src="./image/abhishek.jpeg" width="140" height="140" alt="" class="img-rounded">
             </div>
             <div class="col-md-5">
-                <a href="https://www.facebook.com/share/15RtBkEYaX/" 
-                   style="color:#202020; font-family:'typo'; font-size:18px" 
-                   title="Find on Facebook">Gaurav Patil</a>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 7875335539</h4>
-                <h4 style="font-family:'typo';">gp949958@gmail.com</h4>
-                <h4 style="font-family:'typo';">Government Polytechnic Murtizapur, Akola</h4>
+                <h4>Abhishek Kumar</h4>
+                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9616625629</h4>
+                <h4 style="font-family:'typo';">abhishek007kum@gmail.com</h4>
+                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
             </div>
         </div>
         <hr> <!-- Divider Line -->
 
         <div class="row">
             <div class="col-md-4">
-                <img src="./image/vinod_mangate.jpg" width="140" height="140" alt="" class="img-rounded">
+                <img src="./image/abhishek-pal.jpeg" width="140" height="140" alt="" class="img-rounded">
             </div>
             <div class="col-md-5">
-                <a href="https://www.facebook.com/share/15RtBkEYaX/" 
-                   style="color:#202020; font-family:'typo'; font-size:18px" 
-                   title="Find on Facebook">Vinod Mangate</a>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9699171841</h4>
-                <h4 style="font-family:'typo';">mangatevinod52@gmail.com</h4>
-                <h4 style="font-family:'typo';">Government Polytechnic Murtizapur, Akola</h4>
+                <h4>Abhishek Pal</h4>
+                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91  7370004059</h4>
+                <h4 style="font-family:'typo';">abhishekpal7641@gmail.com</h4>
+                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
             </div>
         </div>
         <hr> <!-- Divider Line -->
 
         <div class="row">
             <div class="col-md-4">
-                <img src="./image/vitthal_nirmal.jpg" width="140" height="140" alt="" class="img-rounded">
+               <img src="./image/ansh.jpeg" width="140" height="140" alt="" class="img-rounded">
             </div>
             <div class="col-md-5">
-                <a href="https://www.facebook.com/share/15RtBkEYaX/" 
-                   style="color:#202020; font-family:'typo'; font-size:18px" 
-                   title="Find on Facebook">Vitthal Nirmal</a>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 7498604273</h4>
-                <h4 style="font-family:'typo';">vitthalnirmal172@gmail.com</h4>
-                <h4 style="font-family:'typo';">Government Polytechnic Murtizapur, Akola</h4>
+                <h4>Ansh Raj Sharma</a>
+                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9264943633</h4>
+                <h4 style="font-family:'typo';">anshrajsharma1234@gmail.com</h4>
+                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
             </div>
         </div>
     </p>

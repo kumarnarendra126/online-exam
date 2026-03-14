@@ -9,16 +9,17 @@ background-attachment:fixed;
 }
 .bg
 {
-min-height:540px;
+height:630px;
 }
 .bg1
 {
 background:url(../image/bg.jpg);
-min-height:535px;
+min-height:630px;
 }
 .bg2
 {
 background: url(../image/download.jpg);
+height:630px;
 }
 @font-face {
    font-family: 'typo';
