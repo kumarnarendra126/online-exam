@@ -8,6 +8,8 @@
  <link  rel="stylesheet" href="css/bootstrap-theme.min.css"/>    
  <link rel="stylesheet" href="css/main.css">
  <link  rel="stylesheet" href="css/font.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+ 
  <script src="js/jquery.js" type="text/javascript"></script>
 
   <script src="js/bootstrap.min.js"  type="text/javascript"></script>
@@ -66,7 +68,7 @@ echo '<span class="pull-right top title1">
 <nav class="navbar navbar-default title1">
   <div class="container-fluid" style="padding-left: 0; padding-right: 0;">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav" style="margin: 0; padding-left: 0;">
+      <ul class="nav navbar-nav" style="margin: 0;">
         <li <?php if(@$_GET['q']==0) echo 'class="active"'; ?> style="padding-left: 0;">
           <a href="dash.php?q=0" style="font-weight: bold;">
             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Home<span class="sr-only">(current)</span>
@@ -131,12 +133,12 @@ $q12=mysqli_query($con,"SELECT score FROM history WHERE eid='$eid' AND email='$e
 $rowcount=mysqli_num_rows($q12);	
 if($rowcount == 0){
 	echo '<tr><td>'.$c++.'</td><td>'.$title.'</td><td>'.$total.'</td><td>'.$sahi*$total.'</td><td>'.$time.'&nbsp;min</td>
-	<td><b><a href="account.php?q=quiz&step=2&eid='.$eid.'&n=1&t='.$total.'" class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td></tr>';
+	<td><b><a href="account.php?q=quiz&step=2&eid='.$eid.'&n=1&t='.$total.'" class="pull-right btn btn-success"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td></tr>';
 }
 else
 {
 echo '<tr style="color:#99cc32"><td>'.$c++.'</td><td>'.$title.'&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td><td>'.$total.'</td><td>'.$sahi*$total.'</td><td>'.$time.'&nbsp;min</td>
-	<td><b><a href="update.php?q=quizre&step=25&eid='.$eid.'&n=1&t='.$total.'" class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></td></tr>';
+	<td><b><a href="update.php?q=quizre&step=25&eid='.$eid.'&n=1&t='.$total.'" class="pull-right btn btn-danger"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></td></tr>';
 }
 }
 $c=0;
@@ -209,14 +211,14 @@ echo '<div class="panel"><form class="form-inline" method="get" action="dash.php
         <div class="form-group">
             <input type="text" name="s" class="form-control" placeholder="Search name or email" value="'.htmlspecialchars($search).'" />
         </div>
-        <button type="submit" class="btn btn-default">Search</button>
+        <button type="submit" class="btn btn-orange">Search</button>
       </form><br />';
 
 // edit form (modal, always present)
 echo <<<EOT
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-            <div class="modal-content">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content themed-modal">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                     <h4 class="modal-title">Edit User</h4>
@@ -254,7 +256,7 @@ echo <<<EOT
                         </div>
                         <div class="form-group" align="center">
                             <button type="submit" class="btn btn-success">Save changes</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -548,7 +550,7 @@ while($row = mysqli_fetch_array($result)) {
     $time = $row['time'];
 	$eid = $row['eid'];
 	echo '<tr><td>'.$c++.'</td><td>'.$title.'</td><td>'.$total.'</td><td>'.$sahi*$total.'</td><td>'.$time.'&nbsp;min</td>
-	<td><b><a href="update.php?q=rmquiz&eid='.$eid.'" class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Remove</b></span></a></b></td></tr>';
+	<td><b><a href="update.php?q=rmquiz&eid='.$eid.'" class="pull-right btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Remove</b></span></a></b></td></tr>';
 }
 $c=0;
 echo '</table></div></div>';

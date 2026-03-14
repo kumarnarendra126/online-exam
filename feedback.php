@@ -140,10 +140,10 @@ You can send us your feedback through e-mail on the following e-mail id:<br />
 <!--Footer start-->
 <div class="row footer">
 	<div class="col-md-2 box">
-		<a href="About US.html" target="_blank" style="font-weight: bold;">About us</a>
+		<a href="about.php" target="_blank" style="font-weight: bold;">About us</a>
 	</div>
 	<div class="col-md-2 box">
-		<a href="Contact US.html" target="_blank" style="font-weight: bold;">Contact us</a>
+		<a href="contact.php" target="_blank" style="font-weight: bold;">Contact Us</a>
 	</div>
 	<div class="col-md-3 box">
 		<a href="#" data-toggle="modal" data-target="#login" style="font-weight: bold;">Admin Login</a></div>
@@ -168,45 +168,39 @@ You can send us your feedback through e-mail on the following e-mail id:<br />
     <p>
         <div class="row">
             <div class="col-md-4">
-                <img src="./image/Gaurav_Patil.jpg" width="140" height="140" alt="" class="img-rounded">
+                <img src="./image/abhishek.jpeg" width="140" height="140" alt="" class="img-rounded">
             </div>
             <div class="col-md-5">
-                <a href="https://www.facebook.com/share/15RtBkEYaX/" 
-                   style="color:#202020; font-family:'typo'; font-size:18px" 
-                   title="Find on Facebook">Gaurav Patil</a>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 7875335539</h4>
-                <h4 style="font-family:'typo';">gp949958@gmail.com</h4>
-                <h4 style="font-family:'typo';">Government Polytechnic Murtizapur, Akola</h4>
+                <h4>Abhishek Kumar</h4>
+                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9616625629</h4>
+                <h4 style="font-family:'typo';">abhishek007kum@gmail.com</h4>
+                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
             </div>
         </div>
         <hr> <!-- Divider Line -->
 
         <div class="row">
             <div class="col-md-4">
-                <img src="./image/vinod_mangate.jpg" width="140" height="140" alt="" class="img-rounded">
+                <img src="./image/abhishek-pal.jpeg" width="140" height="140" alt="" class="img-rounded">
             </div>
             <div class="col-md-5">
-                <a href="https://www.facebook.com/share/15RtBkEYaX/" 
-                   style="color:#202020; font-family:'typo'; font-size:18px" 
-                   title="Find on Facebook">Vinod Mangate</a>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9699171841</h4>
-                <h4 style="font-family:'typo';">mangatevinod52@gmail.com</h4>
-                <h4 style="font-family:'typo';">Government Polytechnic Murtizapur, Akola</h4>
+                <h4>Abhishek Pal</h4>
+                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91  7370004059</h4>
+                <h4 style="font-family:'typo';">abhishekpal7641@gmail.com</h4>
+                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
             </div>
         </div>
         <hr> <!-- Divider Line -->
 
         <div class="row">
             <div class="col-md-4">
-                <img src="./image/vitthal_nirmal.jpg" width="140" height="140" alt="" class="img-rounded">
+                <img src="./image/ansh.jpeg" width="140" height="140" alt="" class="img-rounded">
             </div>
             <div class="col-md-5">
-                <a href="https://www.facebook.com/share/15RtBkEYaX/" 
-                   style="color:#202020; font-family:'typo'; font-size:18px" 
-                   title="Find on Facebook">Vitthal Nirmal</a>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 7498604273</h4>
-                <h4 style="font-family:'typo';">vitthalnirmal172@gmail.com</h4>
-                <h4 style="font-family:'typo';">Government Polytechnic Murtizapur, Akola</h4>
+                 <h4>Ansh Raj Sharma</h4>
+                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9264943633</h4>
+                <h4 style="font-family:'typo';">anshrajsharma1234@gmail.com</h4>
+                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
             </div>
         </div>
     </p>

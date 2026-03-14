@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Contact Us</title>
+    <title>Contact Us - Online Examination System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            background-color: #f0f8ff;
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
             color: #333;
             margin: 0;
             padding: 20px;
@@ -16,86 +17,126 @@
             max-width: 900px;
             margin: 0 auto;
             background-color: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
         h1, h2 {
-            color: #4a90e2;
+            color: #0056b3;
             text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-top: 40px;
         }
         .section {
-            background-color: #e6f7ff;
-            border: 2px solid #4a90e2;
-            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .feedback-form input, .feedback-form textarea {
             padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            font-size: 1rem;
+        }
+        .feedback-form button {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .feedback-form button:hover {
+            background-color: #0056b3;
+        }
+        .developer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .developer-card {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            flex: 1 1 calc(30% - 20px);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .developer-card:hover {
+            transform: translateY(-10px);
+        }
+        .developer-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
             margin-bottom: 15px;
         }
-        .section p {
-            margin: 5px 0;
-        }
-        .contact-info a {
-            text-decoration: none;
-            color: #4a90e2;
-            font-weight: bold;
-        }
-        .feedback-section {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .feedback-textarea {
-            width: 95%;
-            height: 100px;
-            border: 2px solid #4a90e2;
-            border-radius: 8px;
-            padding: 10px;
-            resize: none;
-            font-size: 18px;
-        }
-        .feedback-button {
-            background-color: #4a90e2;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 18px;
+        .social-links a {
+            margin: 0 10px;
+            color: #007bff;
+            font-size: 1.5rem;
         }
     </style>
-    <script>
-        function sendFeedback() {
-            const feedback = document.getElementById("feedback").value;
-            if (feedback.trim() === "") {
-                alert("Please enter your feedback before sending.");
-            } else {
-                alert("Feedback sent successfully!");
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Online Examination System</h1>
-        <div class="feedback-section">
-            <textarea id="feedback" class="feedback-textarea" placeholder="Enter your feedback here..."></textarea>
-            <button class="feedback-button" onclick="sendFeedback()">Send Feedback</button><br><br>
-        </div>
-        <h2>Contact Us</h2>
+        <h1>Contact Us</h1>
+        
         <div class="section">
-            <p><b>Name:</b> Gaurav Rajendra Patil</p>
-            <p><b>&#x2709; Email:</b> <a href="mailto:gp949958@example.com">gp949958@example.com</a></p>
-            <p><b>&#x260E; Mobile:</b> <a href="tel:+917875335539">+91 7875335539</a></p>
+            <h2>Send us a Message</h2>
+            <form class="feedback-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
         </div>
+
         <div class="section">
-            <p><b>Name:</b> Vinod Ramdas Mangate</p>
-            <p><b>&#x2709; Email:</b> <a href="mailto:vinodmangate52@example.com">vinodmangate52@example.com</a></p>
-            <p><b>&#x260E; Mobile:</b> <a href="tel:+919699171841">+91 9699171841</a></p>
-        </div>
-        <div class="section">
-            <p><b>Name:</b> Vitthal Rajesh Nirmal</p>
-            <p><b>&#x2709; Email:</b> <a href="mailto:vitthalnirmal172@example.com">vitthalnirmal172@example.com</a></p>
-            <p><b>&#x260E; Mobile:</b> <a href="tel:+917498604273">+91 7498604273</a></p>
+            <h2>Our Developers</h2>
+            <div class="developer-container">
+                <div class="developer-card">
+                    <img src="./image/abhishek.jpeg" alt="Abhishek Kumar" class="developer-img">
+                    <h3>Abhishek Kumar</h3>
+                    <div class="social-links">
+                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+                <div class="developer-card">
+                    <img src="./image/abhishek-pal.jpeg" alt="Abhishek Pal" class="developer-img">
+                    <h3>Abhishek Pal</h3>
+                    <div class="social-links">
+                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+                <div class="developer-card">
+                    <img src="./image/ansh.jpeg" alt="Ansh Raj Sharma" class="developer-img">
+                    <h3>Ansh Raj Sharma</h3>
+                    <div class="social-links">
+                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

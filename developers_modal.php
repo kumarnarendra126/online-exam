@@ -1,53 +1,55 @@
-<div class="modal fade title1" id="developers">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+<div class="modal fade" id="developers" tabindex="-1" role="dialog" aria-labelledby="developersModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content themed-modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" style="font-family:'typo' "><span style="color:orange">Developers</span></h4>
+        <h5 class="modal-title" id="developersModalLabel"><i class="fas fa-users"></i> Developers</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-
       <div class="modal-body">
-    <p>
-        <div class="row">
-            <div class="col-md-4">
-                <img src="./image/abhishek.jpeg" width="140" height="140" alt="" class="img-rounded">
-            </div>
-            <div class="col-md-5">
-                <h4 style="color:#202020; font-family:'typo'; font-size:18px">Abhishek Kumar</h4>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9616625629</h4>
-                <h4 style="font-family:'typo';">abhishek007kum@gmail.com</h4>
-                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
-            </div>
-        </div>
-        <hr> <!-- Divider Line -->
-
-        <div class="row">
-            <div class="col-md-4">
-                <img src="./image/abhishek-pal.jpeg" width="140" height="140" alt="" class="img-rounded">
-            </div>
-            <div class="col-md-5">
-                <h4 style="color:#202020; font-family:'typo'; font-size:18px">Abhishek Pal</h4>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91  7370004059</h4>
-                <h4 style="font-family:'typo';">abhishekpal7641@gmail.com</h4>
-                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
+        <div class="developer-profile">
+            <img src="./image/abhishek.jpeg" alt="Abhishek Kumar" class="developer-img">
+            <div class="developer-info">
+                <h5>Abhishek Kumar</h5>
+                <p>+91 9616625629 | abhishek007kum@gmail.com</p>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                </div>
             </div>
         </div>
-        <hr> <!-- Divider Line -->
-
-        <div class="row">
-            <div class="col-md-4">
-                <img src="./image/ansh.jpeg" width="140" height="140" alt="" class="img-rounded">
-            </div>
-            <div class="col-md-5">
-                <h4 style="color:#202020; font-family:'typo'; font-size:18px">Ansh Raj Sharma</h4>
-                <h4 style="color:#202020; font-family:'typo';font-size:16px" class="title1">+91 9264943633</h4>
-                <h4 style="font-family:'typo';">anshrajsharma1234@gmail.com</h4>
-                <h4 style="font-family:'typo';">M.D.D.C Gorakhpur</h4>
+        <hr>
+        <div class="developer-profile">
+            <img src="./image/abhishek-pal.jpeg" alt="Abhishek Pal" class="developer-img">
+            <div class="developer-info">
+                <h5>Abhishek Pal</h5>
+                <p>+91 7370004059 | abhishekpal7641@gmail.com</p>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                </div>
             </div>
         </div>
-    </p>
+        <hr>
+        <div class="developer-profile">
+            <img src="./image/ansh.jpeg" alt="Ansh Raj Sharma" class="developer-img">
+            <div class="developer-info">
+                <h5>Ansh Raj Sharma</h5>
+                <p>+91 9264943633 | anshrajsharma1234@gmail.com</p>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
-
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
