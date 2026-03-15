@@ -9,6 +9,8 @@
  <link  rel="stylesheet" href="css/font.css">
  <script src="js/jquery.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"  type="text/javascript"></script>
+    <script src="js/login.js" type="text/javascript"></script>
+  <script src="js/admin_login.js" type="text/javascript"></script>
  	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
    <style>
         .container {
@@ -101,7 +103,7 @@ echo '<a href="logout?q=feedback" class="pull-right sub1 btn title3"><span class
 <!--header end-->
 
 <div class="bg1">
-<div class="row">
+<div class="row" style="height: 630px;">
     <div class="col-md-3"></div>
     <div class="col-md-6 panel" style="background-image:url(image/bg1.jpg); min-height:430px;">
 <div class="row" style="text-align:center;">

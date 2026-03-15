@@ -77,11 +77,6 @@ echo '<span class="pull-right top title1">
             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Ranking
           </a>
         </li>
-        <li class="pull-right">
-          <a href="logout.php?q=account.php" style="font-weight: bold;">
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Signout
-          </a>
-        </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

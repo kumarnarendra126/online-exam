@@ -9,6 +9,8 @@
  <link  rel="stylesheet" href="css/font.css">
  <script src="js/jquery.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"  type="text/javascript"></script>
+  <script src="js/login.js" type="text/javascript"></script>
+  <script src="js/admin_login.js" type="text/javascript"></script>
  	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 	<!--alert message-->
 <?php if(@$_GET['w'])
@@ -23,7 +25,7 @@
 <!--header start-->
 <div class="row header">
 <div class="col-lg-6">
-<span class="logo">Test Your Skill</span></div>
+<span class="logo">ExamPoint</span></div>
 <div class="col-md-2">
 </div>
 <div class="col-md-4">

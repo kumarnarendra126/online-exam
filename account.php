@@ -456,18 +456,18 @@ function getQuizHistory($con, $email, $eid)
 </div>
 <!--Footer start-->
 <div class="row footer">
-    <div class="col-md-2 box">
+    <div class="col-md-3 box">
         <a href="about.php" target="_blank" style="font-weight: bold;">About us</a>
     </div>
-    <div class="col-md-2 box">
+    <div class="col-md-3 box">
         <a href="contact.php" target="_blank" style="font-weight: bold;">Contact Us</a>
     </div>
-    <div class="col-md-3 box">
-        <a href="#" data-toggle="modal" data-target="#login" style="font-weight: bold;">Admin Login</a></div>
+    <!-- <div class="col-md-3 box">
+        <a href="#" data-toggle="modal" data-target="#login" style="font-weight: bold;">Admin Login</a></div> -->
     <div class="col-md-3 box">
         <a href="#" data-toggle="modal" data-target="#developers" style="font-weight: bold;">Developers</a>
     </div>
-    <div class="col-md-2 box">
+    <div class="col-md-3 box">
         <a href="feedback.php" target="_blank" style="font-weight: bold;">Feedback</a>
     </div>
 </div>
