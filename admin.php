@@ -1,17 +1,17 @@
 <?php
 include_once 'dbConnection.php';
+session_start();
 $email = $_POST['uname'];
 $password = $_POST['password'];
 
-$email = stripslashes($email);
-$email = addslashes($email);
-$password = stripslashes($password); 
-$password = addslashes($password);
-$result = mysqli_query($con,"SELECT email FROM admin WHERE email = '$email' and password = '$password'") or die('Error');
-$count=mysqli_num_rows($result);
+$stmt = $con->prepare("SELECT email FROM admin WHERE email = ? and password = ?");
+$stmt->bind_param("ss", $email, $password);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$count = $result->num_rows;
 
 if($count==1){
-    session_start();
     if(isset($_SESSION['email'])){
         session_unset();
     }
@@ -23,4 +23,5 @@ if($count==1){
 else {
     echo json_encode(['success' => false, 'message' => 'Wrong Username or Password']);
 }
+$stmt->close();
 ?>

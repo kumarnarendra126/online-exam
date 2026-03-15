@@ -124,23 +124,21 @@ while($row = mysqli_fetch_array($result)) {
 	$correct = $row['correct'];
     $time = $row['time'];
 	$eid = $row['eid'];
-$q12=mysqli_query($con,"SELECT score FROM history WHERE eid='$eid' AND email='$email'" )or die('Error98');
-$rowcount=mysqli_num_rows($q12);	
-if($rowcount == 0){
-	echo '<tr><td>'.$c++.'</td><td>'.$title.'</td><td>'.$total.'</td><td>'.$correct*$total.'</td><td>'.$time.'&nbsp;min</td>
-	<td><b><a href="account.php?q=quiz&step=2&eid='.$eid.'&n=1&t='.$total.'" class="pull-right btn btn-success"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td></tr>';
+echo '<tr><td>'.$c++.'</td><td>'.$title.'</td><td>'.$total.'</td><td>'.$correct*$total.'</td><td>'.$time.'&nbsp;min</td>';
+if (isset($_SESSION['key']) && $_SESSION['key'] == 'sunny7785068889') {
+    echo '<td style="white-space:nowrap;">
+        <a href="dash.php?q=editquiz&eid='.$eid.'" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Quiz</a>
+    </td>';
+} else {
+    echo '<td>No Record Found</td>';
 }
-else
-{
-echo '<tr style="color:#99cc32"><td>'.$c++.'</td><td>'.$title.'&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td><td>'.$total.'</td><td>'.$correct*$total.'</td><td>'.$time.'&nbsp;min</td>
-	<td><span class="pull-right" style="color: green; font-weight: bold;">Solved</span></td></tr>';
-}
+echo '</tr>';
 }
 $c=0;
 echo '</table></div></div>';
 
 }
-
+// <a href="dash.php?q=editquestions&eid='.$eid.'" class="btn btn-warning btn-sm" style="margin-left: 5px;"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Questions</a>
 //ranking start
 if(@$_GET['q']== 2) 
 {
@@ -250,7 +248,7 @@ echo <<<EOT
                             </div>
                         </div>
                         <div class="form-group" align="center">
-                            <button type="submit" class="btn btn-success">Save changes</button>
+                            <button type="submit" class="btn btn-success">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
@@ -372,6 +370,213 @@ echo '<div class="panel"<a title="Back to Archive" href="update.php?q1=2"><b><sp
 }?>
 <!--Feedback reading portion closed-->
 
+<!--edit quiz start-->
+<?php
+if (@$_GET['q'] == 'editquiz' && @$_GET['eid']) {
+    $eid = @$_GET['eid'];
+    $result = mysqli_query($con, "SELECT * FROM quiz WHERE eid='$eid'") or die('Error');
+    $row = mysqli_fetch_assoc($result);
+    
+    if (!$row) {
+        echo '<div class="alert alert-danger">Quiz not found.</div>';
+    } else {
+        $title = htmlspecialchars($row['title']);
+        $total = $row['total'];
+        $correct = $row['correct'];
+        $wrong = $row['wrong'];
+        $time = $row['time'];
+        $tag = htmlspecialchars($row['tag']);
+        $desc = isset($row['desc']) ? htmlspecialchars($row['desc']) : '';
+
+        echo ' 
+        <div class="row">
+        <span class="title1" style="margin-left:40%;font-size:30px;"><b>Edit Quiz Details</b></span><br /><br />
+         <div class="col-md-3"></div><div class="col-md-6">   <form class="form-horizontal title1" name="form" action="update.php?q=editquiz&eid=' . $eid . '"  method="POST">
+        <fieldset>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="name"></label>  
+          <div class="col-md-12">
+          <input id="name" name="name" placeholder="Enter Quiz title" class="form-control input-md" type="text" value="' . $title . '">
+            
+          </div>
+        </div>
+        
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="total"></label>  
+          <div class="col-md-12">
+          <input id="total" name="total" placeholder="Enter total number of questions" class="form-control input-md" type="number" value="' . $total . '">
+            
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="right"></label>  
+          <div class="col-md-12">
+          <input id="right" name="right" placeholder="Enter marks on right answer" class="form-control input-md" min="0" type="number" value="' . $correct . '">
+            
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="wrong"></label>  
+          <div class="col-md-12">
+          <input id="wrong" name="wrong" placeholder="Enter minus marks on wrong answer" class="form-control input-md" min="0" type="number" value="' . $wrong . '">
+            
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="time"></label>  
+          <div class="col-md-12">
+          <input id="time" name="time" placeholder="Enter time limit for test in minute" class="form-control input-md" min="1" type="number" value="' . $time . '">
+            
+          </div>
+        </div>
+        
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="tag"></label>  
+          <div class="col-md-12">
+          <input id="tag" name="tag" placeholder="Enter a tag/category for the quiz" class="form-control input-md" type="text" value="' . $tag . '">
+            
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="desc"></label>  
+          <div class="col-md-12">
+          <textarea rows="8" cols="8" name="desc" class="form-control" placeholder="Write description here...">' . $desc . '</textarea>  
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-12 control-label" for=""></label>
+          <div class="col-md-12" style="text-align: center;"> 
+            <input  type="submit" class="btn btn-primary" value="Save"/>
+            <a href="dash.php?q=0" class="btn btn-default" style="margin-left: 5px;padding: 10px 15px;">Cancel</a>
+          </div>
+        </div>
+
+        </fieldset>
+        </form></div>';
+    }
+}
+?>
+<!--edit quiz end-->
+
+<!--edit questions start-->
+<?php
+if (@$_GET['q'] == 'editquestions' && @$_GET['eid']) {
+    $eid = @$_GET['eid'];
+    $result = mysqli_query($con, "SELECT * FROM quiz WHERE eid='$eid'") or die('Error');
+    $row = mysqli_fetch_assoc($result);
+    $title = htmlspecialchars($row['title']);
+
+    echo '
+    <div class="row">
+        <div class="col-md-12">
+            <span class="title1" style="font-size:30px;"><b>Edit Questions for ' . $title . '</b>
+                <button id="viewModeToggle" class="btn btn-primary btn-sm" style="margin-left: 10px;">View Mode</button>
+            </span>
+            <br /><br />
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal title1" name="form" action="update.php?q=editqns&eid=' . $eid . '" method="POST">
+                <fieldset id="questions_fieldset">';
+
+    $q_result = mysqli_query($con, "SELECT * FROM questions WHERE eid='$eid' ORDER BY q_no ASC") or die('Error');
+    $q_no = 1;
+    while ($q_row = mysqli_fetch_assoc($q_result)) {
+        $qid = $q_row['qid'];
+        $qns = htmlspecialchars($q_row['qns']);
+
+        echo '<b>Question number&nbsp;' . $q_no . '&nbsp;:</b><br />';
+        echo '<input type="hidden" name="qid' . $q_no . '" value="' . $qid . '">';
+        echo '<div class="form-group">
+                  <div class="col-md-12">
+                      <textarea rows="3" cols="5" name="qns' . $q_no . '" class="form-control">' . $qns . '</textarea>
+                  </div>
+              </div>';
+
+        $o_result = mysqli_query($con, "SELECT * FROM options WHERE qid='$qid'") or die('Error');
+        $options = [];
+        while ($o_row = mysqli_fetch_assoc($o_result)) {
+            $options[$o_row['optionid']] = htmlspecialchars($o_row['option']);
+        }
+
+        $a_result = mysqli_query($con, "SELECT * FROM answer WHERE qid='$qid'") or die('Error');
+        $a_row = mysqli_fetch_assoc($a_result);
+        $ansid = $a_row ? $a_row['ansid'] : null;
+
+        $option_letters = ['a', 'b', 'c', 'd'];
+        $i = 0;
+        $option_ids = array_keys($options);
+        foreach ($options as $optionid => $option) {
+            echo '<div class="form-group">
+                      <label class="col-md-1 control-label" for="' . $qid . $option_letters[$i] . '">' . $option_letters[$i] . '.</label>
+                      <div class="col-md-11">
+                          <input id="' . $qid . $option_letters[$i] . '" name="option' . $q_no . '_' . ($i + 1) . '" class="form-control input-md" type="text" value="' . $option . '">
+                          <input type="hidden" name="optionid' . $q_no . '_' . ($i + 1) . '" value="' . $optionid . '">
+                      </div>
+                  </div>';
+            $i++;
+        }
+
+        echo '<br /><b>Correct answer</b>:<br />
+                <select name="ans' . $q_no . '" class="form-control input-md">';
+
+        $i = 0;
+        foreach ($options as $optionid => $option) {
+            $selected = ($ansid == $optionid) ? 'selected' : '';
+            echo '<option value="' . $optionid . '" ' . $selected . '>option ' . $option_letters[$i] . '</option>';
+            $i++;
+        }
+        echo '</select><br /><br />';
+        $q_no++;
+    }
+    
+    echo '<input type="hidden" name="num_questions" value="' . ($q_no - 1) . '">';
+
+    echo '<div class="form-group">
+                      <div class="col-md-12" style="text-align: center;">
+                        <input type="submit" class="btn btn-primary" value="Save"/>
+                        <a href="dash.php?q=0" class="btn btn-default" style="margin-left: 5px;padding: 10px 15px;">Cancel</a>
+                      </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById("viewModeToggle").addEventListener("click", function() {
+            var fieldset = document.getElementById("questions_fieldset");
+            var button = this;
+            if (fieldset.disabled) {
+                fieldset.disabled = false;
+                button.textContent = "View Mode";
+            } else {
+                fieldset.disabled = true;
+                button.textContent = "Edit Mode";
+            }
+        });
+    </script>
+    ';
+}
+?>
+<!--edit questions end-->
+
 <!--add quiz start-->
 <?php
 if(@$_GET['q']==4 && !(@$_GET['step']) ) {
@@ -432,6 +637,15 @@ echo '
 
 <!-- Text input-->
 <div class="form-group">
+  <label class="col-md-12 control-label" for="tag"></label>  
+  <div class="col-md-12">
+  <input id="tag" name="tag" placeholder="Enter a tag/category for the quiz" class="form-control input-md" type="text">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
   <label class="col-md-12 control-label" for="desc"></label>  
   <div class="col-md-12">
   <textarea rows="8" cols="8" name="desc" class="form-control" placeholder="Write description here..."></textarea>  
@@ -458,16 +672,64 @@ echo '
 <!--add quiz step2 start-->
 <?php
 if(@$_GET['q']==4 && (@$_GET['step'])==2 ) {
+
+if(isset($_GET['success'])) {
+    echo '<div class="row"><div class="col-md-8 col-md-offset-2" style="margin-top:1em;"><div class="alert alert-success" role="alert">' . htmlspecialchars($_GET['success']) . '</div></div></div>';
+}
+if(isset($_GET['error'])) {
+    echo '<div class="row"><div class="col-md-8 col-md-offset-2" style="margin-top:1em;"><div class="alert alert-danger" role="alert">' . htmlspecialchars($_GET['error']) . '</div></div></div>';
+}
+
+echo '
+<div class="row">
+    <div class="col-md-8 col-md-offset-2" style="margin-top: 1em;">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Optional: Upload Questions from CSV <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <p>You can upload questions in bulk using a CSV file. Please ensure the file has 6 columns in the following order:</p>
+                        <p><code>Question Text, Option A, Option B, Option C, Option D, Correct Answer Letter (a, b, c, or d)</code></p>
+                        <hr>
+                        <form class="form-horizontal" action="upload_questions.php" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="eid" value="' . @$_GET['eid'] . '">
+                            <input type="hidden" name="n" value="' . @$_GET['n'] . '">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="file">Select CSV file:</label>
+                                <div class="col-md-9">
+                                    <input type="file" name="file" id="file" class="form-control-file" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" name="submit" class="btn btn-primary"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload CSV</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+';
+
 echo ' 
 <div class="row">
-<span class="title1" style="margin-left:40%;font-size:30px;"><b>Enter Question Details</b></span><br /><br />
+<span class="title1" style="margin-left:40%;font-size:30px;"><b>Enter Question Details Manually</b></span><br /><br />
  <div class="col-md-3"></div><div class="col-md-6"><form class="form-horizontal title1" name="form" action="update.php?q=addqns&n='.@$_GET['n'].'&eid='.@$_GET['eid'].'&ch=4 "  method="POST">
 <fieldset>
 ';
  
  for($i=1;$i<=@$_GET['n'];$i++)
  {
-echo '<b>Question number&nbsp;'.$i.'&nbsp;:</><br /><!-- Text input-->
+echo '<b>Question number&nbsp;'.$i.'&nbsp;:</b><br /><!-- Text input-->
 <div class="form-group">
   <label class="col-md-12 control-label" for="qns'.$i.' "></label>  
   <div class="col-md-12">

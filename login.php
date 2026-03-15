@@ -8,17 +8,17 @@ include_once 'dbConnection.php';
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$email = stripslashes($email);
-$email = addslashes($email);
-$password = stripslashes($password);
-$password = addslashes($password);
 $password = md5($password);
 
-$result = mysqli_query($con, "SELECT name FROM user WHERE email = '$email' and password = '$password'") or die('Error');
-$count = mysqli_num_rows($result);
+$stmt = $con->prepare("SELECT name FROM user WHERE email = ? AND password = ?");
+$stmt->bind_param("ss", $email, $password);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$count = $result->num_rows;
 
 if ($count == 1) {
-    while ($row = mysqli_fetch_array($result)) {
+    while ($row = $result->fetch_assoc()) {
         $name = $row['name'];
     }
     $_SESSION["name"] = $name;
@@ -31,4 +31,5 @@ if ($count == 1) {
     session_destroy();
     echo json_encode(['success' => false, 'message' => 'Wrong Username or Password']);
 }
+$stmt->close();
 ?>

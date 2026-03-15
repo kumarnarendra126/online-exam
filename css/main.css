@@ -9,7 +9,7 @@ background-attachment:fixed;
 }
 .bg
 {
-height:630px;
+min-height:630px;
 }
 .bg1
 {
@@ -19,7 +19,7 @@ min-height:630px;
 .bg2
 {
 background: url(../image/download.jpg);
-height:630px;
+min-height:630px;
 }
 @font-face {
    font-family: 'typo';
@@ -162,14 +162,14 @@ text-decoration:none;
 }
 
 .btn.btn-danger {
-    background-color: orange;
-    color: black;
+    background-color: #d9534f;
+    color: white;
     border-radius: 18px;
 }
 
 .btn.btn-danger:hover {
-    background-color: #ffc107;
-    color: black;
+    background-color: #c9302c;
+    color: white;
 }
 
 .btn.btn-success {
@@ -329,4 +329,8 @@ text-decoration:none;
     border-color: #ff8c00 !important;
     color: #000 !important;
     border-radius: 18px;
+}
+
+.btn-primary {
+    background-image: none !important;
 }

@@ -5,7 +5,7 @@ $email=$_SESSION['email'];
 //delete feedback
 if(isset($_SESSION['key'])){
 if(@$_GET['fdid'] && $_SESSION['key']=='sunny7785068889') {
-$id=@$_GET['fdid'];
+$id = mysqli_real_escape_string($con, $_GET['fdid']);
 $result = mysqli_query($con,"DELETE FROM feedback WHERE id='$id' ") or die('Error');
 header("location:dash.php?q=3");
 }
@@ -14,7 +14,7 @@ header("location:dash.php?q=3");
 //delete user
 if(isset($_SESSION['key'])){
 if(@$_GET['demail'] && $_SESSION['key']=='sunny7785068889') {
-$demail=@$_GET['demail'];
+$demail = mysqli_real_escape_string($con, $_GET['demail']);
 $r1 = mysqli_query($con,"DELETE FROM rank WHERE email='$demail' ") or die('Error');
 $r2 = mysqli_query($con,"DELETE FROM history WHERE email='$demail' ") or die('Error');
 $result = mysqli_query($con,"DELETE FROM user WHERE email='$demail' ") or die('Error');
@@ -24,7 +24,7 @@ header("location:dash.php?q=1");
 //remove quiz
 if(isset($_SESSION['key'])){
 if(@$_GET['q']== 'rmquiz' && $_SESSION['key']=='sunny7785068889') {
-$eid=@$_GET['eid'];
+$eid = mysqli_real_escape_string($con, $_GET['eid']);
 $result = mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' ") or die('Error');
 while($row = mysqli_fetch_array($result)) {
 	$qid = $row['qid'];
@@ -45,7 +45,7 @@ if(@$_GET['q']== 'addquiz' && $_SESSION['key']=='sunny7785068889') {
 $name = $_POST['name'];
 $name= ucwords(strtolower($name));
 $total = $_POST['total'];
-$correct = $_POST['correct'];
+$correct = $_POST['right'];
 $wrong = $_POST['wrong'];
 $time = $_POST['time'];
 $tag = $_POST['tag'];
@@ -55,6 +55,60 @@ $q3=mysqli_query($con,"INSERT INTO quiz VALUES  ('$id','$name' , '$correct' , '$
 
 header("location:dash.php?q=4&step=2&eid=$id&n=$total");
 }
+}
+
+//edit quiz
+if(isset($_SESSION['key'])){
+if(@$_GET['q'] == 'editquiz' && $_SESSION['key']=='sunny7785068889') {
+$eid = @$_GET['eid'];
+$name = $_POST['name'];
+$total = $_POST['total'];
+$correct = $_POST['right'];
+$wrong = $_POST['wrong'];
+$time = $_POST['time'];
+$tag = $_POST['tag'];
+$desc = $_POST['desc'];
+
+$name = mysqli_real_escape_string($con, $name);
+$tag = mysqli_real_escape_string($con, $tag);
+$desc = mysqli_real_escape_string($con, $desc);
+$total = (int)$total;
+$correct = (int)$correct;
+$wrong = (int)$wrong;
+$time = (int)$time;
+
+$q = mysqli_query($con, "UPDATE quiz SET title='$name', total='$total', correct='$correct', wrong='$wrong', time='$time', tag='$tag', `desc`='$desc' WHERE eid='$eid'") or die(mysqli_error($con));
+
+header("location:dash.php?q=0&quiz_edited=true");
+}
+}
+
+//edit questions
+if(isset($_SESSION['key'])){
+    if(@$_GET['q'] == 'editqns' && $_SESSION['key']=='sunny7785068889') {
+        $eid = @$_GET['eid'];
+        $num_questions = $_POST['num_questions'];
+
+        for ($i = 1; $i <= $num_questions; $i++) {
+            $qid = $_POST['qid' . $i];
+            $qns = $_POST['qns' . $i];
+
+            $qns = mysqli_real_escape_string($con, $qns);
+            mysqli_query($con, "UPDATE questions SET qns='$qns' WHERE qid='$qid'") or die(mysqli_error($con));
+
+            for ($j = 1; $j <= 4; $j++) {
+                $option = $_POST['option' . $i . '_' . $j];
+                $optionid = $_POST['optionid' . $i . '_' . $j];
+                $option = mysqli_real_escape_string($con, $option);
+                mysqli_query($con, "UPDATE options SET `option`='$option' WHERE optionid='$optionid'") or die(mysqli_error($con));
+            }
+
+            $ansid = $_POST['ans' . $i];
+            mysqli_query($con, "UPDATE answer SET ansid='$ansid' WHERE qid='$qid'") or die(mysqli_error($con));
+        }
+
+        header("location:dash.php?q=0&questions_edited=true");
+    }
 }
 
 //add question
@@ -110,11 +164,11 @@ header("location:dash.php?q=0");
 
 //quiz start
 if(@$_GET['q']== 'quiz' && @$_GET['step']== 2) {
-    $eid=@$_GET['eid'];
-    $sn=@$_GET['n'];
-    $total=@$_GET['t'];
-    $ans=$_POST['ans'];
-    $qid=@$_GET['qid'];
+    $eid = mysqli_real_escape_string($con, $_GET['eid']);
+    $sn = mysqli_real_escape_string($con, $_GET['n']);
+    $total = mysqli_real_escape_string($con, $_GET['t']);
+    $ans = $_POST['ans'];
+    $qid = mysqli_real_escape_string($con, $_GET['qid']);
 
     $q=mysqli_query($con,"SELECT * FROM history WHERE eid='$eid' AND email='$email'" ) or die(mysqli_error($con));
     $row=mysqli_fetch_array($q);
@@ -141,10 +195,7 @@ if(@$_GET['q']== 'quiz' && @$_GET['step']== 2) {
         {
             $sahi=$row['correct'];
         }
-        if($sn == 1)
-        {
-            $q=mysqli_query($con,"INSERT INTO history(email, eid, score, level, correct, wrong, date, start_time) VALUES('$email','$eid' ,'0','0','0','0',NOW(), NOW())")or die(mysqli_error($con));
-        }
+        
         $q=mysqli_query($con,"SELECT * FROM history WHERE eid='$eid' AND email='$email' ")or die(mysqli_error($con));
 
         while($row=mysqli_fetch_array($q) )
